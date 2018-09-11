@@ -3,6 +3,8 @@ import 'es6-promise/auto'
 import Vuex from 'vuex'
 import api from '../api/api'
 import axios from 'axios'
+import actions from './actions'
+
 
 Vue.use(Vuex);
 
@@ -26,6 +28,7 @@ var store = new Vuex.Store({
         }
     },
     actions: {
+        playList: actions.playList,
         getStatus({commit}){
             // fetch("api/" + api.phoneLogin + "?phone=13517249392&password=422325").then(res => res.json()).then(data => {
             //     console.log(data);
