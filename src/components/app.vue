@@ -1,15 +1,17 @@
 <template>
-    <div>
-        <div>this is vuex</div>
+    <div class="body">
         <UserInfo></Userinfo>
+        <Header></Header>
     </div>
 </template>
 
 <script>
 import UserInfo from './userInfo'
+import Header from './header'
 export default {
     components: {
-        UserInfo
+        UserInfo,
+        Header
     }
 }
 </script>
