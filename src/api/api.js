@@ -108,6 +108,19 @@ const suggest = '/search/suggest';
  * /search/suggest/?keywords=童话镇&type=1....
 */
 
+// 搜索多重匹配
+const multimatch = '/search/multimatch';
+/**
+ *  /search/multimatch?keywords=童话镇
+*/
+
+// 新建歌单
+const create = '/playlist/create';
+/**
+ * 必选参数 name    
+ *  /playlist/create?name=名字
+*/
+
 export default {
     phoneLogin,
     emailLogin,
@@ -132,5 +145,7 @@ export default {
     artistList,
     search,
     hot,
-    suggest
+    suggest,
+    multimatch,
+    create
 }
