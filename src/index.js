@@ -7,11 +7,11 @@ import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import Button from './components/button/button'
 import Alert from './components/alert/alert'
+import './style/index.less'
 
 // 全局注册
 Vue.component('Button',Button);
 Vue.component('Alert',Alert);
-Vue.use(ElementUI);
 
 new Vue({
     el: '#app',

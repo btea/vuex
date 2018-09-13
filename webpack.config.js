@@ -30,7 +30,7 @@ module.exports = {
                 use: ['style-loader','css-loader','less-loader']
             },
             {
-                test: /.html$/,
+                test: /\.html$/,
                 use: {
                     loader: 'html-loader',
                     options: {minimize: true}

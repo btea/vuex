@@ -2,6 +2,7 @@ import actions from '../actions'
 import mutations from '../mutations'
 
 let userInfo = {
+    namespaced: true,
     state: {
         createDays: null,
         createTime: null,

@@ -13,7 +13,7 @@ let userInfo = function(state, data){
     if(data && typeof data != 'object'){
         return ;
     }
-    let user = data.user;
+    let user = data;
     state.createDays = user.createDays;
     state.createTime = user.createTime;
     state.level = user.level;
