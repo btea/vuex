@@ -121,6 +121,22 @@ const create = '/playlist/create';
  *  /playlist/create?name=名字
 */
 
+// 收藏/取消歌单
+const subscribe = '/playlist/subscribe';
+/**
+ * 必选参数t: 1 收藏  2：取消收藏 id 歌单id
+ *  /playlisy/subscribe/?t=1&id=106677785
+*/
+
+// 对歌单添加或者删除歌曲
+const tracks = '/playlist/tracks';
+/**
+ * 必选参数:op 从歌单增加为add,删除为del pid：歌单id  tracks：歌曲id ，可多个，用逗号隔开
+ * /playlist/tracks?op=add&pid=24381616&tracks=347321
+*/
+
+
+
 export default {
     phoneLogin,
     emailLogin,
