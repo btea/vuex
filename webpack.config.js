@@ -56,6 +56,11 @@ module.exports = {
                 target: 'http://192.168.1.125:3000/',
                 changeOrigin: true,
                 pathRewrite: { "^/api":"/" }
+            },
+            '/baidu': {
+                target: 'http://echarts.baidu.com',
+                changeOrigin: true,
+                pathRewrite: {"^/baidu": "/"}
             }
         }
     }

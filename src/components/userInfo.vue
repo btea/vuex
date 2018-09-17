@@ -53,6 +53,12 @@ export default {
     mounted: function(){
         this.setInterval = setInterval(this.refresh,50)
         console.log(this);
+        fetch('baidu/examples/data/asset/data/les-miserables.gexf').then(res => {
+            console.log(res);
+            return res.json();
+        }).then(data => {
+            console.log(data);
+        })
     },
     // 当使用mapState时,相应的模块需要设置namespaced为true
     // mapState第一个参数为相应的模块名，当dispatch相应action时，action名之前要天机模块名，如： this.$store.dispatch('userInfo/login',{})
