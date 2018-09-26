@@ -41,6 +41,7 @@
     "webpackbar": "^2.6.3"
   },
   "dependencies": {
+    "animejs": "^2.2.0",
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",

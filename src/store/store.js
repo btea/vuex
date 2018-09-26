@@ -11,5 +11,5 @@ var store = new Vuex.Store({
     }
 })
 
-console.log(store.state);
+console.log('state',store.state);
 export default store;
