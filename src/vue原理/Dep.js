@@ -56,6 +56,15 @@ function defineReactive(obj, key, val){
     })
 }
 
+function observer(value){
+    if(!value || typeof value != 'object'){
+        return ;
+    }
+    Object.keys(value).forEach(key => {
+        defineReactive(value,key,value[key]);
+    })
+}
+
 class Vue{
     constructor(options){
         this._data = options.data;
