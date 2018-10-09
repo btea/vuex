@@ -5,21 +5,6 @@
         <div class="playlist" @click="list">获取歌单</div>
         <div @click="userInfo">用户详细信息</div>
         <div>用户等级：{{level}}</div>
-        <Button><span>this is a span</span></Button>
-        <Button type="primary">登录</Button>
-        <Button type="primary" ghost></Button>
-        <Button type="warning"></Button>
-        <Button type="warning" ghost></Button>
-        <Button type="error">自定义按钮</Button>
-        <Button type="error" ghost>自定义按钮，样式修改</Button>
-        <Alert num="12">
-            <div style="color: #6cf;" class="con">
-                <p>第一个</p>
-                <p style="color: #000;">第二个</p>
-            </div>
-            <div>456</div>
-            弹窗
-        </Alert>
         <ul>
             歌单列表
             <li v-for="(list,index) in playlist" :key="index" @click="listDetail(list.id)">
@@ -32,9 +17,6 @@
     </div>
 </template>
 <script>
-// 局部注册
-// import Button from './button/button'
-// console.log(Button);
 
 import {mapState} from 'vuex'
 
@@ -42,14 +24,11 @@ import {mapState} from 'vuex'
 export default {
     data: function() {
         return {
-            num: 0
+            num: 0,
+            news: 'no game no life'
         }
     },
-    // 局部注册组件
-    // components: {
-        // Button: Button
-    // },
-
+   
     mounted: function(){
         this.setInterval = setInterval(this.refresh,50)
         console.log(this);
