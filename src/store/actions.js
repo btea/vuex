@@ -2,6 +2,7 @@ import api from '../api/api'
 import axios from 'axios'
 
 const proxy = 'api';
+// const proxy = '';
 // 登录
 var login = function({commit},user){
     if(typeof user != 'object'){

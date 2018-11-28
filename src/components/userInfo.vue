@@ -40,7 +40,7 @@ export default {
         // })
     },
     // 当使用mapState时,相应的模块需要设置namespaced为true
-    // mapState第一个参数为相应的模块名，当dispatch相应action时，action名之前要天机模块名，如： this.$store.dispatch('userInfo/login',{})
+    // mapState第一个参数为相应的模块名，当dispatch相应action时，action名之前要添加模块名，如： this.$store.dispatch('userInfo/login',{})
 
     computed: mapState('userInfo',[
             'uid',
