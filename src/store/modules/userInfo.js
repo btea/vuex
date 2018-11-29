@@ -9,7 +9,7 @@ let userInfo = {
         level: null,
         listenSongs: null,
         peopleCanSeeMyPlayRecord: true,
-        uid: null,
+        uid: 59361195,
         profile: null,
         userPoint: null,
         playlist: null,

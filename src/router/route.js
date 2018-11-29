@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import App from '../components/app'
 import NotFound from '../components/404'
 import Login from '../components/login'
+import Home from '../components/home'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,10 @@ const routes = [
     {
         path: '/login',
         component: Login 
+    },
+    {
+        path: '/home',
+        component: Home
     },
     {
         path: '/',

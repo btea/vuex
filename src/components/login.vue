@@ -14,58 +14,103 @@
             
         </div>
         <bgAnime></bgAnime>
-        <enterAni v-show = "isEnter"></enterAni>  
+        <enterAni v-show = "isEnter"></enterAni>
+        <alert :tip="tip" :type="type" v-show="isShowTips"></alert>  
     </div>
 </template>
 
 <script>
+import actions from '../store/actions'
+
 import bgAnime from './loginBg';
 import enterAni from './enterAni';
 import customInput from '../smallComponents/input'
+import alert from '../smallComponents/alert'
 export default {
     data(){
         return {
             data: [],
-            isEnter: false,
+            isEnter: false, // 是否登录成功，启动进入界面
             user: '',
-            password: ''
+            password: '',
+            isShowTips: false, // 控制弹窗消息是否显示
+            tip: '', // 弹窗显示消息内容
+            type: '' // 弹窗显示消息类型
         }
     },
     components: {
         bgAnime,
         enterAni,
-        customInput
+        customInput,
+        alert
     },
     mounted: function(){
         let self = this;
-        // fetch('http://localhost:8080/api/user/playlist?uid=59361195').then(res => res.json()).then(data => {
-        //     console.log(data);
-        //     self.data = data.playlist;
-        //     console.log(self.data);
-        // })
-        // setTimeout(function(){
-        //     self.data = [
-        //         {
-        //             name: 'a',
-        //             src: ''
-        //         },
-        //         {
-        //             name: 'b',
-        //             src: ''
-        //         }
-        //     ]
-        // },1000)
     },
     methods: {
         login: function(){
-            let type;
+            // type email/phone 邮箱或者手机登录
+            // data 发送登录请求返回的数据
+            // obj 发送请求传过去的参数
+            let type, data, obj, _self = this;
             if(~this.user.indexOf('@')){
                 type = 'email'
             }else{
                 type = 'phone'
             }
-            
-            console.log(this.$store.state.userInfo.uid);
+            obj = {
+                loginType: type,
+                password: this.password
+            }
+            obj[type] = this.user;
+            data = this.$store.dispatch('userInfo/login', obj);
+            data.then(res => {
+                console.log(res);
+                if(res.res.status === 200 && res.res.data.code === 200){
+                    res.commit({
+                        type: 'login',
+                        login: res.res.data
+                    })
+                    _self.loginSuccess();
+                }else{ 
+                    _self.loginFail();
+                }
+            },(err) => {
+                console.log(err);
+                _self.loginFail();
+            })
+            // console.log(data);  
+            // console.log(this.$store.state.userInfo.uid);
+        },
+        validatePhone: function(){
+            let reg = /^1[34578]\d{9}$/;
+            if(reg.test(this.user)){
+                return true;
+            }
+            return false;
+        },
+        validateEmial: function(){},
+        loginSuccess: function(){
+            this.isEnter = true;
+            this.tip = '登录成功';
+            this.type = 'success';
+            this.tipSwitch();
+            setTimeout(() => {
+                // 路由跳转
+                this.$router.push({path: 'home'});
+            },1000)
+        },
+        loginFail: function(){
+            this.tip = '登录失败，请核对账号密码';
+            this.type = 'error';
+            this.tipSwitch();
+        },
+        tipSwitch: function(t = 1000){
+            this.isShowTips = true;
+            console.log('显示');
+            setTimeout(() => {
+                this.isShowTips = false;
+            }, t)
         }
     }
 }

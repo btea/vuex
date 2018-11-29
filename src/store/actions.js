@@ -4,34 +4,38 @@ import axios from 'axios'
 const proxy = 'api';
 // const proxy = '';
 // 登录
-var login = function({commit},user){
+var login =async function({commit},user){
     if(typeof user != 'object'){
         return ;
     }
-    let url;
+    let url,res;
     if(user.loginType === 'phone'){
         url = proxy + api.phoneLogin + '?phone=' + user.phone + '&password=' + user.password;
-        axios.get(url).then(res => {
-            commit({
-                type: 'login',
-                login: res.data
-            })
-        }).catch(err => {
-            console.log(err);
-        })
+        res = await axios.get(url);
+        return {res, commit};
+        // axios.get(url).then(res => {
+            // commit({
+                // type: 'login',
+                // login: res.data
+            // })
+        // }).catch(err => {
+            // console.log(err);
+        // })
     }
 }
 // 获取用户详细信息
-var userInfo = function({commit},uid){
+var userInfo =async function({commit},uid){
     if(uid && typeof uid === 'number'){
-        let url = proxy + api.userDetail + '?uid=' + uid;
-        axios.get(url).then(res => {
-            if(res.status === 200 && res.data && res.data.code === 200){
-                commit('userInfo',res.data);
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+        let url = proxy + api.userDetail + '?uid=' + uid, data;
+        data = await axios.get(url);
+        return {data, commit};
+        // axios.get(url).then(res => {
+            // if(res.status === 200 && res.data && res.data.code === 200){
+                // commit('userInfo',res.data);
+            // }
+        // }).catch(err => {
+            // console.log(err);
+        // })
     }
 }
 // 获取用户歌单
