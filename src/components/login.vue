@@ -6,7 +6,6 @@
             </div>
             <div class="password">
                 <input type="password" placeholder="请输入密码" v-model="password">
-                <!-- <customInput placeholder="请输入密码" width="200" height="30" type="password"></customInput> -->
             </div>
             <div class="login">
                 <button @click="login">登录</button>
@@ -20,6 +19,7 @@
 </template>
 
 <script>
+
 import actions from '../store/actions'
 
 import bgAnime from './loginBg';
@@ -45,7 +45,8 @@ export default {
         alert
     },
     mounted: function(){
-        let self = this;
+        document.getElementsByTagName('title')[0].text = '登录页···'
+        
     },
     methods: {
         login: function(){
@@ -53,10 +54,38 @@ export default {
             // data 发送登录请求返回的数据
             // obj 发送请求传过去的参数
             let type, data, obj, _self = this;
+            if(!this.user.trim()){
+                this.tip = '用户名不能为空';
+                this.type = 'warning';
+                this.tipSwitch();
+                return;
+            }
+            if(!this.password.trim()){
+                this.tip = '密码不能为空',
+                this.type = 'warning';
+                this.tipSwitch();
+                return ;
+            }
             if(~this.user.indexOf('@')){
                 type = 'email'
             }else{
                 type = 'phone'
+            }
+            if(type === 'phone'){
+                if(!this.validatePhone()){
+                    this.tip = '手机号格式不对,请重新输入';
+                    this.type = 'error';
+                    this.tipSwitch();
+                    return;
+                }
+            }
+            if(type === 'email'){
+                if(!this.validateEmial()){
+                    this.tip = '邮箱格式不对';
+                    this.type = '邮箱格式不对,请重新输入';
+                    this.tipSwitch();
+                    return;
+                }
             }
             obj = {
                 loginType: type,
@@ -65,7 +94,6 @@ export default {
             obj[type] = this.user;
             data = this.$store.dispatch('userInfo/login', obj);
             data.then(res => {
-                console.log(res);
                 if(res.res.status === 200 && res.res.data.code === 200){
                     res.commit({
                         type: 'login',
@@ -76,11 +104,8 @@ export default {
                     _self.loginFail();
                 }
             },(err) => {
-                console.log(err);
                 _self.loginFail();
             })
-            // console.log(data);  
-            // console.log(this.$store.state.userInfo.uid);
         },
         validatePhone: function(){
             let reg = /^1[34578]\d{9}$/;
@@ -89,7 +114,13 @@ export default {
             }
             return false;
         },
-        validateEmial: function(){},
+        validateEmial: function(){
+            let reg = /163@.com/;
+            if(reg.test(this.user)){
+                return true;
+            }
+            return false;
+        },
         loginSuccess: function(){
             this.isEnter = true;
             this.tip = '登录成功';
@@ -107,16 +138,16 @@ export default {
         },
         tipSwitch: function(t = 1000){
             this.isShowTips = true;
-            console.log('显示');
             setTimeout(() => {
                 this.isShowTips = false;
-            }, t)
+            }, 3000)    
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+    @color: #3c3c3c;
     .box{
         width: 100%;
         height: 100vh;
@@ -140,17 +171,17 @@ export default {
                 position: relative;
                 outline: none;
                 border: none;
-                padding-left: 1em;
                 width: 200px;
                 height: 30px;
+                text-align: center;
                 &::-webkit-input-placeholder{
-                    color: #3c3c3C;
+                    color: @color;
                 }
                 &::-webkit-input-placeholder{
-                    color: #3c3c3C;
+                    color: @color;
                 }
                 &::-webkit-input-placeholder{
-                    color: #3c3c3C;
+                    color: @color;
                 }
             }
         }

@@ -1,21 +1,20 @@
 <template>
     <div class="alert">
-        <div :class="['tip', className]">{{tips}}</div>
+        <div :class="['tip', type]">{{tip}}</div>
     </div>
 </template>
 
 <script>
 export default {
+    props: ['tip','type'],
     data: function(){
         return {
-            tips: '',
-            className: ''
+            
         }
     },
 
     mounted: function(){
-        this.$attrs.tip && (this.tips = this.$attrs.tip);
-        this.$attrs.type && (this.className = this.$attrs.type);
+        console.log(this);
     }
 }
 </script>
@@ -36,6 +35,7 @@ export default {
             transform: translate(-50%, -50%);
             border-radius: 8px;
             padding: 5px 10px;
+            font-size: 13px;
             &.success{
                 background-color: #f0f9eb;
                 color: #67c23a;
