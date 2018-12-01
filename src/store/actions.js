@@ -11,17 +11,11 @@ var login =async function({commit},user){
     let url,res;
     if(user.loginType === 'phone'){
         url = proxy + api.phoneLogin + '?phone=' + user.phone + '&password=' + user.password;
-        res = await axios.get(url);
-        return {res, commit};
-        // axios.get(url).then(res => {
-            // commit({
-                // type: 'login',
-                // login: res.data
-            // })
-        // }).catch(err => {
-            // console.log(err);
-        // })
+    }else{
+        url = proxy + api.emailLogin + '?email=' + user.email + '&password=' + user.password;
     }
+    res = await axios.get(url);
+    return {res, commit};
 }
 // 获取用户详细信息
 var userInfo =async function({commit},uid){

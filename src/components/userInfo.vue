@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="user" @click="login">登录</div>
+        <div class="user">登录</div>
         <div>用户id： {{uid}}</div>
         <div class="playlist" @click="list">获取歌单</div>
         <div @click="userInfo">用户详细信息</div>
@@ -57,11 +57,7 @@ export default {
     // },
     methods: {
         login(){
-            this.$store.dispatch('userInfo/login',{
-                loginType: 'phone',
-                phone: 13517249392,
-                password: 422325
-            });
+            
         },
         userInfo(){
             let uid = this.$store.state.userInfo.uid;
