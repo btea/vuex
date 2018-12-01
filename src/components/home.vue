@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <homeHeader :userInfo="userInfo"></homeHeader>  
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
         <play-an></play-an>
     </div>
@@ -8,17 +9,21 @@
 import alert from '../smallComponents/alert'
 import playAn from '../smallComponents/playAn'
 
+import homeHeader from './header/header'
+
 export default {
     data: function(){
         return {
             isAlertShow: false,
             tip: '',
-            type: ''
+            type: '',
+            userInfo: ''
         }
     },
     components: {
         alert,
-        playAn
+        playAn,
+        homeHeader
     },
     mounted: function(){
         this.getUserInfo();
@@ -33,6 +38,7 @@ export default {
             data.then(res => {
                 if(res.data.status === 200 && res.data.data.code === 200){
                     res.commit('userInfo', res.data.data);
+                    _self.userInfo = res.data.data;
                 }else{
                     _self.tip = '获取个人信息失败';
                     _self.type = 'error'

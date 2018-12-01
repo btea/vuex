@@ -128,6 +128,7 @@ export default {
             this.tipSwitch();
             setTimeout(() => {
                 // 路由跳转
+                this.isEnter = false;
                 this.$router.push({path: 'home'});
             },1000)
         },
