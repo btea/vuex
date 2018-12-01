@@ -147,7 +147,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @color: #3c3c3c;
+    @color: #fff;
     .box{
         width: 100%;
         height: 100vh;
@@ -161,7 +161,6 @@ export default {
         top: 50%;
         z-index: 100;
         transform: translate(-50%,-50%);
-        background: rgba(255,255,255,.5);
         .user,.password{
             text-align: center;
             margin: 15px 0;
@@ -170,10 +169,12 @@ export default {
                 padding: 0;
                 position: relative;
                 outline: none;
-                border: none;
-                width: 200px;
-                height: 30px;
+                border: 1px solid #fff;
+                background: rgba(255,255,255,.5);
+                width: 250px;
+                height: 40px;
                 text-align: center;
+                color: @color;
                 &::-webkit-input-placeholder{
                     color: @color;
                 }
@@ -187,21 +188,26 @@ export default {
         }
         .login{
             text-align: center;
+            margin-top: 30px;
             button{
-                margin: 0;
                 padding: 0;
-                width: 200px;
-                height: 30px;
-                border-radius: 10px;
-                background: #6cf;
+                width: 250px;
+                height: 40px;
+                border-radius: 20px;
+                box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+                background-image: -webkit-linear-gradient(0deg, #6cf, #9cf, aqua);
+                background-size: 200% 100%;
+                background-position: 0 0;
+                display: block;
+                transition: background .5s;
                 color: #fff;
-                opacity: .8;
                 outline: none;
                 border: none;
                 margin: 0 auto;
                 cursor: pointer;
                 &:hover{
-                    opacity: 1;
+                    background-position: -100% 0;
                 }
             }
         }
