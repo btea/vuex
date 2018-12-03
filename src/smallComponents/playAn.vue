@@ -96,7 +96,7 @@ export default {
                     this.makeCircle(this.total);
                 }
             })
-            window.requestAnimationFrame(this.update);
+            window.requestAnimFrame(this.update);
         },
         randomSection: function(min, max, integer){
             /**
@@ -114,7 +114,7 @@ export default {
                     window.setTimeout(callback, 1000 / 60);
                 };
             })();
-            this.id = window.requestAnimationFrame(this.update);
+            this.id = window.requestAnimFrame(this.update);
         },
 
         // 绘制播放时动画
