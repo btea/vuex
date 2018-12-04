@@ -2,7 +2,7 @@
     <div class="home">
         <homeHeader :userInfo="userInfo"></homeHeader>  
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
-        <!-- <play-an></play-an> -->
+        <play-an></play-an>
         <rotate></rotate>
     </div>
 </template>
