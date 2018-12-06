@@ -1,4 +1,5 @@
-import _ from './util';
+// import _ from './util';
+let _ = require('./util');
 /**
  * @class Element Virtrual Dom
  * @param {String} tagName

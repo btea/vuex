@@ -2,14 +2,16 @@
     <div class="home">
         <homeHeader :userInfo="userInfo"></homeHeader>  
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
-        <play-an></play-an>
-        <rotate></rotate>
+        <!-- <play-an></play-an> -->
+        <!-- <rotate></rotate> -->
+        <wave></wave>
     </div>
 </template>
 <script>
 import alert from '../smallComponents/alert'
 import playAn from '../smallComponents/playAn'
 import rotate from '../smallComponents/rotate'
+import wave from '../smallComponents/wave'
 
 import homeHeader from './header/header'
 
@@ -26,7 +28,8 @@ export default {
         alert,
         playAn,
         homeHeader,
-        rotate
+        rotate,
+        wave
     },
     mounted: function(){
         this.getUserInfo();

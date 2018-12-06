@@ -44,3 +44,7 @@ let o = new Vue({
     }
 })
 o._data.test = 'hello world'; // 视图更新
+
+o._data.aa = '123';
+console.log(o._data);
+o._data.test = '23333'

@@ -1,5 +1,8 @@
-import fun from './util'
-import listDiff from './element'
+// import fun from './util'
+// import listDiff from './element'
+
+let fun = require('./util');
+let listDiff = require('./element');
 
 const REPLACE = 0;  //replace => 0
 const ATTRS = 1;    // attrs => 1
@@ -26,7 +29,7 @@ function diff(oldTree, newTree){
 function walk(oldNode, newNode, index, patches){
     let currentPatches = [];
     // 如果oldNode被remove掉，即newNode === null的时候  
-    if(mewNode === null || newNode === undefined){
+    if(newNode === null || newNode === undefined){
         // 先不做操作，具体交给list diff处理
     }else if(fun.isString(newNode) && fun.isString(oldNode)){ // 比较文本之间的不同
         if(newNode !== oldNode){
@@ -106,3 +109,15 @@ function diffChildren(oldChildren, newChildren, index, patches, currentPatch){
 }
 
 module.exports = diff;
+
+let ul = listDiff('ul', { id: 'list' }, [
+    listDiff('li', { class: 'item' }, ['Item 1']),
+    listDiff('li', { class: 'item' }, ['Item 2'])
+]);
+let ul1 = listDiff('ul', { id: 'list1' }, [
+    listDiff('li', { class: 'item1' }, ['Item 4']),
+    listDiff('li', { class: 'item2' }, ['Item 5'])
+]);
+let patches = diff(ul, ul1);
+
+console.log(patches);
