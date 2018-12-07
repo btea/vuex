@@ -2,6 +2,7 @@
     <div class="wave">
         <canvas id="waveCurve" ref="wave"></canvas>
         <canvas id="img" ref="img"></canvas>
+        <img src="" alt="" id="dataUrl">
     </div>
 </template>
 
@@ -15,12 +16,13 @@ export default {
             h: 0, // canvas高度
             points: [],
             pixelPoint: [],
-            showpiexl: []
+            showpiexl: [],
+            speed: 1
         }
     },
     mounted: function(){
-        this.w = this.$refs.img.width = this.$refs.wave.width = 200;
-        this.h = this.$refs.img.height = this.$refs.wave.height = 300;
+        this.w = this.$refs.img.width = this.$refs.wave.width = window.innerWidth;
+        this.h = this.$refs.img.height = this.$refs.wave.height = window.innerHeight;
         this.wave = this.$refs.wave.getContext('2d');
         this.img = this.$refs.img.getContext('2d');
         // 关闭锯齿
@@ -32,19 +34,20 @@ export default {
         
 
         this.drawImg('/src/img/1.jpg',this.wave);
-
         let z = new Image(),_self = this,can_img = this.img;
-        z.src = '/src/img/f.jpg';
+        z.src = '/src/img/2.jpg';
+        // z.crossorigin = '';
+        // z.src = srcImg;
         z.onload = function(){
             can_img.drawImage(z, 0, 0);
-            let d = can_img.getImageData(0,0,200,300);
+            let d = can_img.getImageData(0,0,_self.w,_self.h);
             _self.pixelPoint = d;
-            _self.pixelChange();
-            setInterval(() => {
-                _self.update();
-            },100)
+            // setInterval(() => {
+            //     _self.update();
+            // },50)
+            _self.update();
+            // _self.recovery(255);
         }
-        // this.filterImg();
     },
     methods: {
         // 获取符合所有波浪曲线的点   取到的点组合而成的是完整的半圆形状，不是很好看
@@ -87,36 +90,90 @@ export default {
             }
             this.wave.stroke();
         },
+        // 将图片绘制到canvas
         drawImg: function(src,$canvas){
             let _self = this;
             let img = new Image();
+            // 允许跨域
+            // img.setAttribute('crossOrigin', 'Anonymous');
+            img.crossorigin = '';
             img.src = src;
             img.onload = function(){
                 $canvas.drawImage(img,0,0);
             }
         },
         update: function(){
-            this.ry--;
-            this.pixelChange();
-            // if(this.ry < 0){
-                // this.ry = 100;
+            // if(this.ry > this.h){
+            //     this.ry = 0;
+            //     let len = this.pixelPoint.data.length;
+            //     for(let i = 0; i < len; i+= 4){
+            //         this.pixelPoint.data[i+3] = 255;
+            //     }
             // }
-            // this.wave.clearRect(0,0,this.w,this.h);
-            // this.points.length = 0;
-            // this.waveCurvePoint();
+            // this.ry++;
+            // this.waveAnimation(0);
+            if(this.ry < 0){
+                this.speed = 1;
+            }
+            if(this.ry > this.h){
+                this.speed = -1;
+                this.ry = this.h - 1;
+            }
+            this.ry += this.speed;
+            if(this.speed === 1){
+                this.waveAnimation(0);
+            }else{
+                this.recovery(255);
+            }
+            setTimeout(this.update, 50);
         },
-        pixelChange: function(){
+        randomY: function(min, max){
+            return Math.floor(Math.random()* (max - min + 1) + min);
+        },
+        waveAnimation: function(alpha){
+            /**
+             * @param alpha 控制像素点透明度，从上往下，曲线覆盖的部分透明度均为0
+            */
             for(let i = 0; i < this.w / 10; i += 0.1){
                 let obj = {
                     x: Math.round(i * 10)
                 };
-                obj.y = Math.round(this.ry + Math.sin(i) * 10);
+                obj.y = Math.round(this.ry + Math.sin(i) * this.randomY(4,8)); // 采用随机数可以做出锯齿的效果
                 for(let k = 0; k < obj.y; k++){
                     let sym = obj.x * 4 + k * this.w * 4;
-                    this.pixelPoint.data[sym + 3] = 0;
+                    this.pixelPoint.data[sym + 3] = alpha;
                 }
             };
             this.img.putImageData(this.pixelPoint,0,0);
+        },
+        recovery: function(alpha){
+            /**
+             * @param aplpha 从下往上，恢复图片的像素，所有曲线包裹外的像素点透明度均恢复为255
+            */
+            for(let i = 0; i < this.w / 10; i += 0.1){
+                let x = Math.round(i*10);
+                let y = Math.round(this.ry + Math.sin(i) * 10);
+                for(let k = y; k < this.h; k++){
+                    let sym = x * 4 + this.w * k * 4;
+                    // console.log(this.pixelPoint);
+                    // debugger;
+                    this.pixelPoint.data[sym + 3] = alpha; 
+                }
+                // for(let k = this.h; k > y; k--){
+                //     let sym = ((k - 1) * this.w + 1) * 4 + x * 4;
+                //     this.pixelPoint.data[sym + 3] = alpha;
+                // }
+            };
+            this.img.putImageData(this.pixelPoint,0,0);
+        },
+        downloadImg: function(){
+            let data = this.$refs.img.toDataURL();
+            document.getElementById('dataUrl').setAttribute('src', data);
+            // download
+            let l = document.createElement('a');
+            l.href = data;
+            l.download = '1.png';
+            l.click();
         }   
     },
 }
@@ -127,8 +184,8 @@ export default {
         // width: 100vw;
         // height: 100vh;
         position: fixed;
-        left: 50%;
-        top: 50%;
+        left: 0;
+        top: 0;
     }
     #img{
         z-index: 1;
