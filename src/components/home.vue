@@ -3,8 +3,8 @@
         <homeHeader :userInfo="userInfo"></homeHeader>  
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
         <!-- <play-an></play-an> -->
-        <!-- <rotate></rotate> -->
-        <wave></wave>
+        <rotate></rotate>
+        <!-- <wave></wave> -->
     </div>
 </template>
 <script>

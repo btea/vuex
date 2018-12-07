@@ -87,14 +87,7 @@ function diffAttrs(oldNode, newNode){
 // 设置节点唯一标识
 let key_id = 0;
 // diff with children
-function diffChildren(oldChildren, newChildren, index, patches, currentPatch){
-    let diffs = listDiff(oldChildren, newChildren, 'key');
-    newChildren = diffs.children;
-
-    if(diffs.moves.length){
-        let reorderPatch = {type: REORDER, moves: diffs.moves};
-        currentPatch.push(reorderPatch);
-    }
+function diffChildren(oldChildren, newChildren, index, patches){
     // 存放当前node的标识，初始化值为0
     let currentNodeIndex = index;
 

@@ -10,7 +10,7 @@ let _ = require('./util');
 class Element{
     constructor(tagName, attrs, children){
         // 如果只有两个参数
-        if(_.isArray(children)){
+        if(_.isArray(attrs)){
             children = attrs;
             attrs = {}
         }
@@ -34,7 +34,7 @@ class Element{
         children.forEach(child => {
             let childEl = child instanceof Element 
             ? child.render()  // 若子节点也是虚拟节点，递归进行构建
-            : document.createTextNode(childEl)  // 若是字符串，直接构建文本节点
+            : document.createTextNode(child)  // 若是字符串，直接构建文本节点
             el.appendChild(childEl);
         })
         return el;   
