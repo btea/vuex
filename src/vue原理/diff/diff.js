@@ -4,7 +4,7 @@
 let fun = require('./util');
 let listDiff = require('./element');
 
-const REPLACE = 0;  //replace => 0
+const REPLACE = 0;  // replace => 0
 const ATTRS = 1;    // attrs => 1
 const TEXT = 2;     // text => 2
 const REORDER = 3;  // reorder => 3（重排，元素替换顺序）
