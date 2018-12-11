@@ -3,8 +3,9 @@
         <homeHeader :userInfo="userInfo"></homeHeader>  
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
         <!-- <play-an></play-an> -->
-        <rotate></rotate>
+        <!-- <rotate></rotate> -->
         <!-- <wave></wave> -->
+        <animation></animation>   
     </div>
 </template>
 <script>
@@ -12,6 +13,7 @@ import alert from '../smallComponents/alert'
 import playAn from '../smallComponents/playAn'
 import rotate from '../smallComponents/rotate'
 import wave from '../smallComponents/wave'
+import animation from '../smallComponents/canvasAnimation'
 
 import homeHeader from './header/header'
 
@@ -29,7 +31,8 @@ export default {
         playAn,
         homeHeader,
         rotate,
-        wave
+        wave,
+        animation
     },
     mounted: function(){
         this.getUserInfo();
