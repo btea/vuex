@@ -4,8 +4,8 @@
         <alert v-show="isAlertShow" :type="type" :tip="tip"></alert>
         <!-- <play-an></play-an> -->
         <!-- <rotate></rotate> -->
-        <!-- <wave></wave> -->
-        <animation></animation>   
+        <wave></wave>
+        <!-- <animation></animation>    -->
     </div>
 </template>
 <script>

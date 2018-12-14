@@ -1,5 +1,7 @@
 <template>
-    <canvas id="animation" ref="canvas"></canvas>
+    <div class="clip">
+        <canvas id="animation" ref="canvas"></canvas>
+    </div>
 </template>
 
 <script>
@@ -22,6 +24,8 @@ export default {
         this.ani.ImageSmoothingEnabled = false;
 
         this.generatePoint();
+
+        document.addEventListener('keydown',(event => {this.isClip(event)}))
     },
     methods: {
         getPoint(i,j){
@@ -30,7 +34,7 @@ export default {
              * @param j 第j列，j为整数, 范围为1~w
             */
             /**
-             * 变量说明  i在所有像素点中具体位置
+             * 变量说明  position在所有像素点rgba值中具体位置
             */
             let position;
             position = (i - 1) * this.w * 4 + (j - 1) * 4;
@@ -54,9 +58,22 @@ export default {
         randomPoint: function(min, max, isInteger){
             let r = Math.random() * (max - min + 1) + min;
             return isInteger ? Math.floor(r) : r;
+        },
+        isClip: function(event){
+            if(event.key === 'a' && event.ctrlKey){
+                console.log('start');
+            }
         }
     }
 
 }
 </script>
+<style lang="less" scoped>
+    .clip{
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+</style>
+
 
