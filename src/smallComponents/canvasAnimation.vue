@@ -1,6 +1,9 @@
 <template>
     <div class="clip">
         <canvas id="animation" ref="canvas"></canvas>
+        <div class="container">
+            <div class="box" :style="{width: boxW + 'px',height: boxH + 'px',marginLeft: marginX + 'px',marginTop: marginY + 'px'}" @mousedown.prevent="down($event)" @mouseup.prevent="up($event)" @mousemove.prevent="move($event)"></div>
+        </div>
     </div>
 </template>
 
@@ -10,7 +13,16 @@ export default {
         return {
             w: 0,
             h: 0,
-            allPoint: []
+            allPoint: [],
+            boxW: 400,
+            boxH: 200,
+            startX: 0,
+            startY: 0,
+            endX: 0,
+            endY: 0,
+            icChoose: false, // 鼠标是否按下去
+            marginX: 0,
+            marginY: 0
         }
     },
     mounted: function(){
@@ -63,6 +75,32 @@ export default {
             if(event.key === 'a' && event.ctrlKey){
                 console.log('start');
             }
+        },
+        down: function(e){
+            this.isChoose = true;
+            this.startX = e.x;
+            this.startY = e.y;
+        },
+        up: function(e){
+            this.isChoose = false;
+            this.endX = e.x;
+            this.endY = e.y;
+            this.getMargin();
+            // console.log('startX', this.startX);
+            // console.log('startY',this.startY);
+            // console.log('endX',this.endX);
+            // console.log('endY',this.endY);
+        },
+        move: function(e){
+            if(this.isChoose){
+                this.endX = e.x;
+                this.endY = e.y;
+                this.getMargin();
+            }
+        },
+        getMargin: function(){
+            this.marginX = this.endX - this.startX;
+            this.marginY = this.endY - this.startY;
         }
     }
 
@@ -73,6 +111,23 @@ export default {
         position: relative;
         width: 100vw;
         height: 100vh;
+        .container{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,.8);
+            z-index: 10;
+            .box{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background: #ffffff;
+                cursor: move;
+            }
+        }
     }
 </style>
 
