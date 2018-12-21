@@ -115,7 +115,7 @@ export default {
             return false;
         },
         validateEmial: function(){
-            let reg = /@163.com/;
+            let reg = /@163\.com/;
             if(reg.test(this.user)){
                 return true;
             }
