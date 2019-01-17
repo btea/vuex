@@ -1,9 +1,9 @@
 <template>
     <div class="clip">
         <canvas id="animation" ref="canvas"></canvas>
-        <div class="container">
+        <!-- <div class="container">
             <div class="box" :style="{width: boxW + 'px',height: boxH + 'px',marginLeft: marginX + 'px',marginTop: marginY + 'px'}" @mousedown.prevent="down($event)" @mouseup.prevent="up($event)" @mousemove.prevent="move($event)"></div>
-        </div>
+        </div> -->
     </div>
 </template>
 

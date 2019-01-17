@@ -5,7 +5,7 @@
         <!-- <play-an></play-an> -->
         <!-- <rotate></rotate> -->
         <!-- <wave></wave> -->
-        <animation></animation>   
+        <!-- <animation></animation>    -->
     </div>
 </template>
 <script>
@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         getUserInfo: function(){
-            let user = this.$store.state.userInfo, data, _self = this;
+            let user = this.$store.state.userInfo, data;
             console.log(user);
             // return;
             if(!user.uid){ return ;}
@@ -47,13 +47,13 @@ export default {
             data.then(res => {
                 if(res.data.status === 200 && res.data.data.code === 200){
                     res.commit('userInfo', res.data.data);
-                    _self.userInfo = res.data.data;
+                    this.userInfo = res.data.data;
                 }else{
-                    _self.tip = '获取个人信息失败';
-                    _self.type = 'error'
-                    _self.isAlertShow = true;
+                    this.tip = '获取个人信息失败';
+                    this.type = 'error'
+                    this.isAlertShow = true;
                     setTimeout(() => {
-                        _self.isAlertShow = false;
+                        this.isAlertShow = false;
                     },2000)
                 }
             })
